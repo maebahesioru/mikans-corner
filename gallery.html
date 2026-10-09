@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mikan's Corner — gallery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="chopsticks">
+  <span class="logo">🍊 Mikan's Corner</span>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main>
+  <h1>Gallery</h1>
+  <p class="sub">Six moments from Mikan's day. All of them drawn by code — no images were harmed (or used).</p>
+
+  <div class="grid">
+    <div class="card"><canvas id="g1" width="200" height="220"></canvas><h3>Morning stretch</h3><p>wakes up, forgets how legs work</p></div>
+    <div class="card"><canvas id="g2" width="200" height="220"></canvas><h3>Zoomies</h3><p>3am. the hallway is a racetrack.</p></div>
+    <div class="card"><canvas id="g3" width="200" height="220"></canvas><h3>Nap o'clock</h3><p>she is a loaf. warm. unbothered.</p></div>
+    <div class="card"><canvas id="g4" width="200" height="220"></canvas><h3>Star hunting</h3><p>caught one. very proud.</p></div>
+    <div class="card"><canvas id="g5" width="200" height="220"></canvas><h3>Snack time</h3><p>the mikan is round. she is rounder.</p></div>
+    <div class="card"><canvas id="g6" width="200" height="220"></canvas><h3>Being petted</h3><p>maximum blush achieved</p></div>
+  </div>
+</main>
+
+<footer>made with canvas fillRects &amp; too much love · page 2 of 3</footer>
+
+<script src="cat.js"></script>
+<script>
+drawMikan(document.getElementById('g1'), { pose: 'walk', wag: true });
+drawMikan(document.getElementById('g2'), { pose: 'walk', hearts: true });
+drawMikan(document.getElementById('g3'), { pose: 'sleep' });
+drawMikan(document.getElementById('g4'), { pose: 'sit', star: true });
+drawMikan(document.getElementById('g5'), { pose: 'sit', mikan: true });
+drawMikan(document.getElementById('g6'), { pose: 'sit', blush: true, hearts: true });
+</script>
+</body>
+</html>

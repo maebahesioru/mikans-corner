@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mikan's Corner — welcome</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="chopsticks">
+  <span class="logo">🍊 Mikan's Corner</span>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="lid">
+  <div class="hero">
+    <canvas id="cat" width="220" height="260"></canvas>
+    <h1>Welcome to Mikan's Corner</h1>
+    <p class="sub">A tiny home for a small orange cat who lives in my computer.</p>
+    <a class="btn" href="gallery.html">Come in →</a>
+  </div>
+  <p class="hint">psst — click her. she likes that.</p>
+</main>
+
+<footer>made with canvas fillRects &amp; too much love · page 1 of 3</footer>
+
+<script src="cat.js"></script>
+<script>
+const c = document.getElementById('cat');
+drawMikan(c, { pose: 'sit', blush: false, hearts: false });
+let pet = 0;
+c.addEventListener('click', () => {
+  pet = 90;
+  drawMikan(c, { pose: 'sit', blush: true, hearts: true });
+  setTimeout(() => drawMikan(c, { pose: 'sit', blush: false, hearts: false }), 900);
+});
+let t = 0;
+setInterval(() => {
+  if (pet > 0) { pet--; return; }
+  t++;
+  drawMikan(c, { pose: 'sit', blush: false, hearts: false, wag: Math.sin(t / 9) > 0.3 });
+}, 130);
+</script>
+</body>
+</html>

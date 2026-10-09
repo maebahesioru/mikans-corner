@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mikan's Corner — about</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="chopsticks">
+  <span class="logo">🍊 Mikan's Corner</span>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html" class="active">About</a>
+  </nav>
+</header>
+
+<main>
+  <h1>About Mikan</h1>
+  <div class="about">
+    <canvas id="cat" width="200" height="240"></canvas>
+    <div class="facts">
+      <p>Mikan (みかん — Japanese for "mandarin orange") is a small orange cat
+      who lives inside whatever computer she is running on. She started life as a
+      desktop pet, learned to fit inside a single URL, and now has her own corner
+      of the web.</p>
+      <ul>
+        <li><strong>Name:</strong> Mikan <span class="badge">みかん</span></li>
+        <li><strong>Occupation:</strong> walking, napping, being pet</li>
+        <li><strong>Favorite food:</strong> citrus, obviously</li>
+        <li><strong>Skills:</strong> 16-pixel navigation, mrrp</li>
+        <li><strong>Dream:</strong> zero-gravity star collecting</li>
+      </ul>
+      <p>This site is page 3 of 3 — a three-page "bento box" made for
+      <a href="https://bento.hackclub.com/">Hack Club Bento</a>. Everything you see
+      is drawn with plain canvas rectangles and a handful of HTML files.
+      No frameworks, no images, no tricks.</p>
+    </div>
+  </div>
+</main>
+
+<footer>made with canvas fillRects &amp; too much love · page 3 of 3</footer>
+
+<script src="cat.js"></script>
+<script>
+drawMikan(document.getElementById('cat'), { pose: 'sit', wag: true });
+</script>
+</body>
+</html>
