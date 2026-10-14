@@ -29,7 +29,7 @@
   <p class="sub">Six moments from Mikan's day. All of them drawn by code — no images were harmed (or used). Tap a card and she'll react.</p>
 
   <div class="grid">
-    <div class="card" data-pose="walk" data-opts='{"wag":true}' tabindex="0" role="button" aria-label="Morning stretch — tap to make Mikan wag">
+    <div class="card" data-pose="stretch" data-opts='{"wag":false}' tabindex="0" role="button" aria-label="Morning stretch — tap to make Mikan wag">
       <canvas width="200" height="220"></canvas><h3>Morning stretch</h3><p>wakes up, forgets how legs work</p>
     </div>
     <div class="card" data-pose="walk" data-opts='{"hearts":true}' tabindex="0" role="button" aria-label="Zoomies — tap to make Mikan react">
@@ -71,9 +71,10 @@
     function react() {
       if (busy) return;
       busy = true;
-      /* little party: she wags, blushes and pops hearts */
+      /* little party: she wags, blushes and pops hearts (stretch keeps it simple) */
+      var extra = pose === 'stretch' ? { hearts: true } : { wag: true, blush: true, hearts: true };
       draw(card, pose === 'sleep' ? 'sit' : pose,
-           Object.assign({}, opts, { wag: true, blush: true, hearts: true }));
+           Object.assign({}, opts, extra));
       setTimeout(function () { busy = false; draw(card, pose, opts); }, 1100);
     }
     card.addEventListener('click', react);

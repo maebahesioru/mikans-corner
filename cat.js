@@ -37,6 +37,35 @@ function drawMikan(canvas, opts = {}) {
     return;
   }
 
+  if (pose === 'stretch') {
+    // play-bow stretch: chest down, front paws way forward, tail up, eyes happy-closed
+    R(-4, -34, 26, 26, O);          // raised rear haunch
+    R(-24, -22, 22, 20, O);         // sloping back (lower toward the head)
+    R(-38, -26, 18, 18, O);         // head, held low
+    R(-40, -34, 9, 9, O);           // ear L
+    R(-28, -34, 9, 9, O);           // ear R
+    R(-38, -31, 5, 5, P);           // inner ears
+    R(-28, -31, 5, 5, P);
+    R(-34, -19, 7, 3, K);           // closed happy eye
+    R(-25, -19, 7, 3, K);           // closed happy eye
+    R(-31, -12, 6, 4, P);           // nose
+    R(-36, -8, 22, 7, O);           // front paw stretched forward
+    R(-36, -3, 22, 7, O);           // second front paw
+    R(-41, -12, 7, 1, '#e8dcc8');   // whiskers
+    R(-41, -8, 7, 1, '#e8dcc8');
+    R(16, -8, 12, 8, O);            // back foot
+    // tail, up like a question mark
+    X.beginPath();
+    X.strokeStyle = O;
+    X.lineWidth = 8 * s / 2.1;
+    X.lineCap = 'round';
+    X.moveTo(20 * s / 2.1, -30 * s / 2.1);
+    X.quadraticCurveTo(30 * s / 2.1, -44 * s / 2.1, 26 * s / 2.1, -58 * s / 2.1);
+    X.stroke();
+    X.restore();
+    return;
+  }
+
   if (pose === 'walk') {
     // body leaning, legs mid-stride
     R(-16, -34, 36, 26, O);

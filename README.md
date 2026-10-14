@@ -22,8 +22,8 @@ The **Chopsticks** are the sticky nav bar on every page connecting all three.
 - HTML + one shared `style.css` + two shared scripts (`cat.js` = the cat
   renderer, `theme.js` = theme + animation helpers)
 - No images, no frameworks, no build step — open `index.html` and that's it
-- The cat has poses (`sit` / `sleep` / `walk`), accessories (hearts, star,
-  a mandarin), a wagging tail and click-to-blush interactions
+- The cat has poses (`sit` / `sleep` / `walk` / `stretch`), accessories (hearts,
+  star, a mandarin), a wagging tail and click-to-blush interactions
 - **Theme toggle**: ☀️/🌙 button, remembers your choice, follows your system
   preference on first visit
 - **A11y**: skip link, keyboard-operable cat and cards, `prefers-reduced-motion`
