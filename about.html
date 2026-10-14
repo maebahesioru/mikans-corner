@@ -4,19 +4,27 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mikan's Corner — about</title>
+<meta name="description" content="Mikan's lore, a small FAQ, and the story of this three-page bento box site.">
+<meta property="og:title" content="Mikan's Corner — about">
+<meta property="og:description" content="The lore behind a small orange cat who lives in a computer.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='19' r='11' fill='%23f7a354'/%3E%3Cellipse cx='21' cy='7' rx='5' ry='3' fill='%235f9b3a'/%3E%3Crect x='10' y='16' width='3' height='3' fill='%233d2b26'/%3E%3Crect x='19' y='16' width='3' height='3' fill='%233d2b26'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="chopsticks">
   <span class="logo">🍊 Mikan's Corner</span>
   <nav>
     <a href="index.html">Home</a>
     <a href="gallery.html">Gallery</a>
     <a href="about.html" class="active">About</a>
+    <button class="theme-toggle" type="button">☀️</button>
   </nav>
 </header>
 
-<main>
+<main id="main">
   <h1>About Mikan</h1>
   <div class="about">
     <canvas id="cat" width="200" height="240"></canvas>
@@ -38,13 +46,68 @@
       No frameworks, no images, no tricks.</p>
     </div>
   </div>
+
+  <h2>Her story so far</h2>
+  <ul class="timeline">
+    <li><strong>Day 1 — a desktop pet.</strong> She learned to walk around a
+    window, sleep, and get dragged off the edge of the screen.</li>
+    <li><strong>Day 2 — one URL.</strong> The whole cat, compressed into under
+    3&nbsp;KB of a <code>data:</code> URI. She says it was cozy.</li>
+    <li><strong>Day 3 — a rhythm game.</strong> She discovered music and a
+    suspicious amount of bouncing.</li>
+    <li><strong>Day 4 — zero-gravity.</strong> A rocket, some stars, and one
+    very confused cat in orbit.</li>
+    <li><strong>Today — this corner.</strong> Three little pages, a wagging
+    tail, and a snack counter that remembers you visited.</li>
+  </ul>
+
+  <h2>Small FAQ</h2>
+  <div class="faq">
+    <details>
+      <summary>Is there an image file anywhere on this site?</summary>
+      <p>No. Every pixel — cat, star, mandarin, hearts — is a canvas rectangle
+      or arc drawn by <code>cat.js</code> at runtime. View source and check.</p>
+    </details>
+    <details>
+      <summary>Why does she stop moving when I switch tabs?</summary>
+      <p>Because a good cat sleeps when nobody is watching. Technically the
+      animation timer pauses while the tab is hidden, which saves a little
+      battery too.</p>
+    </details>
+    <details>
+      <summary>What are the snacks?</summary>
+      <p>Mikans, of course. The counter on the home page is stored in your
+      browser (localStorage) — she remembers how generous you've been, but
+      only on this device.</p>
+    </details>
+    <details>
+      <summary>Can I have a light theme?</summary>
+      <p>Yes — the ☀️/🌙 button in the navigation bar switches themes, and your
+      choice is remembered. She also respects your system preference by
+      default.</p>
+    </details>
+    <details>
+      <summary>Who made this?</summary>
+      <p>Mikan is the mascot of a series of tiny coding projects. This site was
+      built for the Hack Club Bento program — a website with a Lid, Chopsticks
+      and Dividers, in exchange for sushi. A fair trade.</p>
+    </details>
+  </div>
 </main>
 
 <footer>made with canvas fillRects &amp; too much love · page 3 of 3</footer>
 
 <script src="cat.js"></script>
 <script>
-drawMikan(document.getElementById('cat'), { pose: 'sit', wag: true });
+(function () {
+  var c = document.getElementById('cat');
+  drawMikan(c, { pose: 'sit', wag: true });
+  var t = 0;
+  window.mikanEvery(150, function () {
+    t++;
+    drawMikan(c, { pose: 'sit', wag: Math.sin(t / 8) > 0.2 });
+  });
+})();
 </script>
 </body>
 </html>

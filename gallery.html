@@ -4,29 +4,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mikan's Corner — gallery</title>
+<meta name="description" content="Six moments from Mikan's day — every one drawn with plain canvas rectangles.">
+<meta property="og:title" content="Mikan's Corner — gallery">
+<meta property="og:description" content="Six moments from a pixel cat's day, drawn entirely in code.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='19' r='11' fill='%23f7a354'/%3E%3Cellipse cx='21' cy='7' rx='5' ry='3' fill='%235f9b3a'/%3E%3Crect x='10' y='16' width='3' height='3' fill='%233d2b26'/%3E%3Crect x='19' y='16' width='3' height='3' fill='%233d2b26'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="chopsticks">
   <span class="logo">🍊 Mikan's Corner</span>
   <nav>
     <a href="index.html">Home</a>
     <a href="gallery.html" class="active">Gallery</a>
     <a href="about.html">About</a>
+    <button class="theme-toggle" type="button">☀️</button>
   </nav>
 </header>
 
-<main>
+<main id="main">
   <h1>Gallery</h1>
-  <p class="sub">Six moments from Mikan's day. All of them drawn by code — no images were harmed (or used).</p>
+  <p class="sub">Six moments from Mikan's day. All of them drawn by code — no images were harmed (or used). Tap a card and she'll react.</p>
 
   <div class="grid">
-    <div class="card"><canvas id="g1" width="200" height="220"></canvas><h3>Morning stretch</h3><p>wakes up, forgets how legs work</p></div>
-    <div class="card"><canvas id="g2" width="200" height="220"></canvas><h3>Zoomies</h3><p>3am. the hallway is a racetrack.</p></div>
-    <div class="card"><canvas id="g3" width="200" height="220"></canvas><h3>Nap o'clock</h3><p>she is a loaf. warm. unbothered.</p></div>
-    <div class="card"><canvas id="g4" width="200" height="220"></canvas><h3>Star hunting</h3><p>caught one. very proud.</p></div>
-    <div class="card"><canvas id="g5" width="200" height="220"></canvas><h3>Snack time</h3><p>the mikan is round. she is rounder.</p></div>
-    <div class="card"><canvas id="g6" width="200" height="220"></canvas><h3>Being petted</h3><p>maximum blush achieved</p></div>
+    <div class="card" data-pose="walk" data-opts='{"wag":true}' tabindex="0" role="button" aria-label="Morning stretch — tap to make Mikan wag">
+      <canvas width="200" height="220"></canvas><h3>Morning stretch</h3><p>wakes up, forgets how legs work</p>
+    </div>
+    <div class="card" data-pose="walk" data-opts='{"hearts":true}' tabindex="0" role="button" aria-label="Zoomies — tap to make Mikan react">
+      <canvas width="200" height="220"></canvas><h3>Zoomies</h3><p>3am. the hallway is a racetrack.</p>
+    </div>
+    <div class="card" data-pose="sleep" data-opts='{}' tabindex="0" role="button" aria-label="Nap time — tap to wake Mikan">
+      <canvas width="200" height="220"></canvas><h3>Nap o'clock</h3><p>she is a loaf. warm. unbothered.</p>
+    </div>
+    <div class="card" data-pose="sit" data-opts='{"star":true}' tabindex="0" role="button" aria-label="Star hunting — tap to make Mikan celebrate">
+      <canvas width="200" height="220"></canvas><h3>Star hunting</h3><p>caught one. very proud.</p>
+    </div>
+    <div class="card" data-pose="sit" data-opts='{"mikan":true}' tabindex="0" role="button" aria-label="Snack time — tap to make Mikan happy">
+      <canvas width="200" height="220"></canvas><h3>Snack time</h3><p>the mikan is round. she is rounder.</p>
+    </div>
+    <div class="card" data-pose="sit" data-opts='{"blush":true,"hearts":true}' tabindex="0" role="button" aria-label="Being petted — tap to pet Mikan">
+      <canvas width="200" height="220"></canvas><h3>Being petted</h3><p>maximum blush achieved</p>
+    </div>
   </div>
 </main>
 
@@ -34,12 +54,34 @@
 
 <script src="cat.js"></script>
 <script>
-drawMikan(document.getElementById('g1'), { pose: 'walk', wag: true });
-drawMikan(document.getElementById('g2'), { pose: 'walk', hearts: true });
-drawMikan(document.getElementById('g3'), { pose: 'sleep' });
-drawMikan(document.getElementById('g4'), { pose: 'sit', star: true });
-drawMikan(document.getElementById('g5'), { pose: 'sit', mikan: true });
-drawMikan(document.getElementById('g6'), { pose: 'sit', blush: true, hearts: true });
+(function () {
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card'));
+
+  function draw(card, pose, opts) {
+    drawMikan(card.querySelector('canvas'), Object.assign({ pose: pose }, opts));
+  }
+
+  cards.forEach(function (card) {
+    var pose = card.dataset.pose;
+    var opts = {};
+    try { opts = JSON.parse(card.dataset.opts || '{}'); } catch (e) {}
+    draw(card, pose, opts);
+
+    var busy = false;
+    function react() {
+      if (busy) return;
+      busy = true;
+      /* little party: she wags, blushes and pops hearts */
+      draw(card, pose === 'sleep' ? 'sit' : pose,
+           Object.assign({}, opts, { wag: true, blush: true, hearts: true }));
+      setTimeout(function () { busy = false; draw(card, pose, opts); }, 1100);
+    }
+    card.addEventListener('click', react);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); react(); }
+    });
+  });
+})();
 </script>
 </body>
 </html>
