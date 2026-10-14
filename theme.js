@@ -33,6 +33,18 @@
     return function stop() { if (timer) { clearInterval(timer); timer = null; } };
   };
 
+  /* follow the system theme live, until the visitor picks one themselves */
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: light)');
+    var onSys = function (e) {
+      var picked = null;
+      try { picked = localStorage.getItem(KEY); } catch (err) {}
+      if (!picked) document.documentElement.dataset.theme = e.matches ? 'light' : 'dark';
+    };
+    if (mq.addEventListener) mq.addEventListener('change', onSys);
+    else if (mq.addListener) mq.addListener(onSys);
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     var btns = document.querySelectorAll('.theme-toggle');
     for (var i = 0; i < btns.length; i++) {

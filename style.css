@@ -116,6 +116,13 @@ a { color: var(--accent2); }
   display: inline-block; background: var(--line); color: var(--muted);
   border-radius: 999px; padding: 2px 10px; font-size: .75rem; margin-left: 8px;
 }
+@media (max-width: 600px) {
+  .chopsticks { flex-wrap: wrap; gap: 4px; padding: 10px 14px; }
+  .chopsticks nav a { margin-left: 6px; padding: 5px 9px; font-size: .9rem; }
+  .theme-toggle { margin-left: 6px; }
+  main { padding: 26px 16px 50px; }
+  h1 { font-size: 1.5rem; }
+}
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
   .btn:hover, .card:hover { transform: none; }
