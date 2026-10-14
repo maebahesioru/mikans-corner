@@ -100,6 +100,10 @@ async def main():
         treats2 = await page.text_content("#treats")
         check("home: treats persist after reload", "1" in (treats2 or ""), str(treats2))
 
+        # welcome-back counter (2nd visit in this context)
+        wb = await page.text_content("#welcome-back")
+        check("home: welcome-back appears on revisit", "visit #" in (wb or ""), str(wb))
+
         # theme toggle
         theme0 = await page.evaluate("document.documentElement.dataset.theme")
         await page.click(".theme-toggle")

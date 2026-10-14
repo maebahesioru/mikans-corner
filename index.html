@@ -37,6 +37,7 @@
     <a class="btn" href="gallery.html">Come in →</a>
   </div>
   <p class="hint">psst — click her (or press enter). she likes that.</p>
+  <p class="hint" id="welcome-back"></p>
 </main>
 
 <footer>made with canvas fillRects &amp; too much love · page 1 of 3</footer>
@@ -58,6 +59,17 @@
   renderTreats();
 
   var busy = false;
+  /* remember how many times you've visited — she notices */
+  var VISIT_KEY = 'mikan-visits';
+  var visits = 0;
+  try { visits = parseInt(localStorage.getItem(VISIT_KEY) || '0', 10) || 0; } catch (e) {}
+  visits += 1;
+  try { localStorage.setItem(VISIT_KEY, String(visits)); } catch (e) {}
+  if (visits > 1) {
+    document.getElementById('welcome-back').textContent =
+      'welcome back — visit #' + visits + '. she remembers you.';
+  }
+
   function react(opts, ms) {
     if (busy) return;
     busy = true;

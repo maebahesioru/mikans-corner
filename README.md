@@ -25,10 +25,11 @@ The **Chopsticks** are the sticky nav bar on every page connecting all three.
 - The cat has poses (`sit` / `sleep` / `walk` / `stretch`), accessories (hearts,
   star, a mandarin), a wagging tail and click-to-blush interactions
 - **Theme toggle**: ☀️/🌙 button, remembers your choice, follows your system
-  preference on first visit
+  preference on first visit (and keeps following system changes until you pick)
 - **A11y**: skip link, keyboard-operable cat and cards, `prefers-reduced-motion`
-  support, focus rings
+  support, focus rings, responsive down to 375px
 - **Battery friendly**: the idle animation pauses while the tab is hidden
+- She also remembers how many times you've visited (localStorage)
 
 ## Run locally
 
