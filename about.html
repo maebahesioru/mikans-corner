@@ -44,6 +44,7 @@
       <a href="https://bento.hackclub.com/">Hack Club Bento</a>. Everything you see
       is drawn with plain canvas rectangles and a handful of HTML files.
       No frameworks, no images, no tricks.</p>
+      <button id="export-about" class="btn btn-small btn-ghost" type="button">📷 Save this pose as PNG</button>
     </div>
   </div>
 
@@ -92,6 +93,12 @@
       built for the Hack Club Bento program — a website with a Lid, Chopsticks
       and Dividers, in exchange for sushi. A fair trade.</p>
     </details>
+    <details>
+      <summary>Can I keep one of her poses?</summary>
+      <p>Yes — every page now has a save button. It paints the current canvas
+      onto an offscreen one with the page background, then downloads it as a
+      real PNG. Even the saved file is made of code.</p>
+    </details>
   </div>
 </main>
 
@@ -102,6 +109,10 @@
 (function () {
   var c = document.getElementById('cat');
   drawMikan(c, { pose: 'sit', wag: true });
+
+  document.getElementById('export-about').addEventListener('click', function () {
+    mikanSavePose(c, 'mikan-about.png');
+  });
   var t = 0;
   window.mikanEvery(150, function () {
     t++;

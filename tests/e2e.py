@@ -6,7 +6,8 @@ Run:
 
 Covers all three pages: zero JS errors, cat renders (non-blank canvas),
 click-to-pet, feed counter + localStorage persistence, theme toggle +
-persistence, gallery card reactions, FAQ toggle, skip link.
+persistence, gallery card reactions, FAQ toggle, skip link, PNG pose
+export (home / gallery / about).
 Also writes a fresh screenshot to screenshot.png.
 """
 import asyncio
@@ -84,6 +85,16 @@ async def main():
         check("home: keyboard pet works (no error)", not errors, "; ".join(errors[:3]))
         await page.wait_for_timeout(1000)
 
+        # export the current pose as a PNG download
+        async with page.expect_download() as dl_info:
+            await page.click("#export")
+        dl = await dl_info.value
+        check(
+            "home: PNG pose export downloads",
+            (dl.suggested_filename or "").endswith(".png"),
+            str(dl.suggested_filename),
+        )
+
         # feed counter
         treats0 = await page.text_content("#treats")
         await page.click("#feed")
@@ -133,6 +144,16 @@ async def main():
         check("gallery: card reacts (no error)", not errors, "; ".join(errors[:3]))
         await page.wait_for_timeout(1300)
 
+        # save a card pose as PNG (must not trigger the card reaction)
+        async with page.expect_download() as dl_info:
+            await page.click(".card:nth-child(3) .save-img")
+        dl = await dl_info.value
+        check(
+            "gallery: card pose export downloads",
+            (dl.suggested_filename or "").startswith("mikan-"),
+            str(dl.suggested_filename),
+        )
+
         # --- about ---
         await page.goto((HERE / "about.html").as_uri())
         await page.wait_for_timeout(500)
@@ -146,6 +167,16 @@ async def main():
         )
         check("about: FAQ toggles open", open_state is True, str(open_state))
         check("about: timeline present", await page.locator(".timeline li").count() >= 4)
+
+        # export from the about page
+        async with page.expect_download() as dl_info:
+            await page.click("#export-about")
+        dl = await dl_info.value
+        check(
+            "about: PNG export downloads",
+            (dl.suggested_filename or "").endswith(".png"),
+            str(dl.suggested_filename),
+        )
 
         # --- screenshot (dark theme, home) ---
         await page.goto(base)

@@ -32,6 +32,7 @@
     <p class="sub">A tiny home for a small orange cat who lives in my computer.</p>
     <div class="feed-row">
       <button id="feed" class="btn btn-small" type="button">🍊 Give her a mikan</button>
+      <button id="export" class="btn btn-small btn-ghost" type="button">📷 Save this pose</button>
       <span id="treats" class="treats" aria-live="polite"></span>
     </div>
     <a class="btn" href="gallery.html">Come in →</a>
@@ -88,6 +89,11 @@
     try { localStorage.setItem(TREAT_KEY, String(treats)); } catch (e) {}
     renderTreats();
     react({ mikan: true, hearts: true, blush: true }, 1200);
+  });
+
+  /* download the pose she's showing right now as a PNG */
+  document.getElementById('export').addEventListener('click', function () {
+    mikanSavePose(c, 'mikan-home.png');
   });
 
   /* idle animation: tail wags now and then; pauses in hidden tabs */

@@ -26,26 +26,26 @@
 
 <main id="main">
   <h1>Gallery</h1>
-  <p class="sub">Six moments from Mikan's day. All of them drawn by code — no images were harmed (or used). Tap a card and she'll react.</p>
+  <p class="sub">Six moments from Mikan's day. All of them drawn by code — no images were harmed (or used). Tap a card and she'll react, or save a pose as a PNG.</p>
 
   <div class="grid">
     <div class="card" data-pose="stretch" data-opts='{"wag":false}' tabindex="0" role="button" aria-label="Morning stretch — tap to make Mikan wag">
-      <canvas width="200" height="220"></canvas><h3>Morning stretch</h3><p>wakes up, forgets how legs work</p>
+      <canvas width="200" height="220"></canvas><h3>Morning stretch</h3><p>wakes up, forgets how legs work</p><button class="save-img" type="button" data-name="morning-stretch" aria-label="Save 'Morning stretch' as a PNG">⬇ png</button>
     </div>
     <div class="card" data-pose="walk" data-opts='{"hearts":true}' tabindex="0" role="button" aria-label="Zoomies — tap to make Mikan react">
-      <canvas width="200" height="220"></canvas><h3>Zoomies</h3><p>3am. the hallway is a racetrack.</p>
+      <canvas width="200" height="220"></canvas><h3>Zoomies</h3><p>3am. the hallway is a racetrack.</p><button class="save-img" type="button" data-name="zoomies" aria-label="Save 'Zoomies' as a PNG">⬇ png</button>
     </div>
     <div class="card" data-pose="sleep" data-opts='{}' tabindex="0" role="button" aria-label="Nap time — tap to wake Mikan">
-      <canvas width="200" height="220"></canvas><h3>Nap o'clock</h3><p>she is a loaf. warm. unbothered.</p>
+      <canvas width="200" height="220"></canvas><h3>Nap o'clock</h3><p>she is a loaf. warm. unbothered.</p><button class="save-img" type="button" data-name="nap" aria-label="Save 'Nap o'clock' as a PNG">⬇ png</button>
     </div>
     <div class="card" data-pose="sit" data-opts='{"star":true}' tabindex="0" role="button" aria-label="Star hunting — tap to make Mikan celebrate">
-      <canvas width="200" height="220"></canvas><h3>Star hunting</h3><p>caught one. very proud.</p>
+      <canvas width="200" height="220"></canvas><h3>Star hunting</h3><p>caught one. very proud.</p><button class="save-img" type="button" data-name="star-hunting" aria-label="Save 'Star hunting' as a PNG">⬇ png</button>
     </div>
     <div class="card" data-pose="sit" data-opts='{"mikan":true}' tabindex="0" role="button" aria-label="Snack time — tap to make Mikan happy">
-      <canvas width="200" height="220"></canvas><h3>Snack time</h3><p>the mikan is round. she is rounder.</p>
+      <canvas width="200" height="220"></canvas><h3>Snack time</h3><p>the mikan is round. she is rounder.</p><button class="save-img" type="button" data-name="snack-time" aria-label="Save 'Snack time' as a PNG">⬇ png</button>
     </div>
     <div class="card" data-pose="sit" data-opts='{"blush":true,"hearts":true}' tabindex="0" role="button" aria-label="Being petted — tap to pet Mikan">
-      <canvas width="200" height="220"></canvas><h3>Being petted</h3><p>maximum blush achieved</p>
+      <canvas width="200" height="220"></canvas><h3>Being petted</h3><p>maximum blush achieved</p><button class="save-img" type="button" data-name="being-petted" aria-label="Save 'Being petted' as a PNG">⬇ png</button>
     </div>
   </div>
 </main>
@@ -79,8 +79,19 @@
     }
     card.addEventListener('click', react);
     card.addEventListener('keydown', function (e) {
+      if (e.target !== card) return;
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); react(); }
     });
+
+    /* save this card's pose as a PNG — without triggering the reaction */
+    var saveBtn = card.querySelector('.save-img');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        mikanSavePose(card.querySelector('canvas'),
+                      'mikan-' + (saveBtn.dataset.name || 'pose') + '.png');
+      });
+    }
   });
 })();
 </script>

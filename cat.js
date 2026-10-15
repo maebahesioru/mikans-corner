@@ -164,3 +164,30 @@ function drawMikan(canvas, opts = {}) {
   }
   X.restore();
 }
+
+/* Save what a canvas is showing right now as a real PNG download.
+   Canvases are transparent, so the page background is painted first.
+   No images are used — even the saved file is drawn from code. */
+window.mikanSavePose = function (canvas, filename) {
+  if (!canvas) return;
+  const out = document.createElement('canvas');
+  out.width = canvas.width;
+  out.height = canvas.height;
+  const x = out.getContext('2d');
+  const bg = getComputedStyle(document.documentElement)
+    .getPropertyValue('--bg')
+    .trim();
+  x.fillStyle = bg || (document.documentElement.dataset.theme === 'light' ? '#fdf6ec' : '#191622');
+  x.fillRect(0, 0, out.width, out.height);
+  x.drawImage(canvas, 0, 0);
+  out.toBlob(function (blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename || 'mikan.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }, 'image/png');
+};

@@ -24,6 +24,9 @@ The **Chopsticks** are the sticky nav bar on every page connecting all three.
 - No images, no frameworks, no build step — open `index.html` and that's it
 - The cat has poses (`sit` / `sleep` / `walk` / `stretch`), accessories (hearts,
   star, a mandarin), a wagging tail and click-to-blush interactions
+- **Save any pose as a PNG**: a 📷 button on all three pages paints the
+  current canvas + page background onto a new canvas and downloads it;
+  gallery cards each have their own small ⬇ png button
 - **Theme toggle**: ☀️/🌙 button, remembers your choice, follows your system
   preference on first visit (and keeps following system changes until you pick)
 - **A11y**: skip link, keyboard-operable cat and cards, `prefers-reduced-motion`
